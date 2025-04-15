@@ -34,16 +34,19 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity<Void> savePessoa(@RequestBody Pessoa pessoa){
+        pessoaService.savePessoa(pessoa);
         return ResponseEntity.status(201).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updatePessoa(@RequestBody Pessoa pessoa, @PathVariable Long id){
+        pessoaService.updateVPessoa(pessoa, id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delelePessoa(@PathVariable Long id){
+        pessoaService.deletePessoaById(id);
         return ResponseEntity.ok().build();
     }
 }

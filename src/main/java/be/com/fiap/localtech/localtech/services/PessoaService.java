@@ -2,10 +2,13 @@ package be.com.fiap.localtech.localtech.services;
 
 import be.com.fiap.localtech.localtech.model.Pessoa;
 import be.com.fiap.localtech.localtech.repositories.PessoaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
@@ -23,8 +26,13 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
-    public void updateVPessoa(Pessoa pessoa) {
-        var update = pessoaRepository.save(pessoa);
+    public void savePessoa(Pessoa pessoa) {
+        var save = pessoaRepository.save(pessoa);
+        Assert.state(save == 1,  "Erro ao salvar pessoa: " + pessoa.getNome());
+    }
+
+    public void updateVPessoa(Pessoa pessoa, Long id) {
+        var update = pessoaRepository.update(pessoa, id);
 
         if(update == 0) {
             throw new RuntimeException("Pessoa não encontrada");
