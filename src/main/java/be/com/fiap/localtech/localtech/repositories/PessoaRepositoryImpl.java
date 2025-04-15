@@ -49,12 +49,13 @@ public class PessoaRepositoryImpl implements PessoaRepository {
     @Override
     public Integer update(Pessoa pessoa, Long id) {
         return this.jdbcClient
-                .sql("UPDATE pessoa SET nome = :nome, sobrenome = :sobrenome, cpf = :cpf, telefone =:telefone, email = :email")
+                .sql("UPDATE pessoa SET nome = :nome, sobrenome = :sobrenome, cpf = :cpf, telefone =:telefone, email = :email WHERE id = :id")
                 .param("nome", pessoa.getNome())
                 .param("sobrenome", pessoa.getSobrenome())
                 .param("cpf", pessoa.getCpf())
                 .param("telefone", pessoa.getTelefone())
                 .param("email", pessoa.getEmail())
+                .param("id", id)
                 .update();
     }
 

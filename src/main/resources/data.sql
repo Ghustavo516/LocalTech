@@ -17,6 +17,19 @@ CREATE TABLE pessoa (
       email VARCHAR(255)
 );
 
+CREATE TABLE aluguel (
+     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+     pessoa_id BIGINT,
+     veiculo_id BIGINT,
+     veiculoModelo VARCHAR(255),
+     dataInicio DATE,
+     dataFim DATE,
+     valorTotal DECIMAL(10,2),
+     FOREIGN KEY (pessoa_id) REFERENCES pessoa(id),
+     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
+);
+
+
 INSERT INTO veiculos (marca, modelo, placa, ano, cor, valor_diaria)
 VALUES ('Chevrolet', 'Celta', 'ABC-1234', 2010, 'preta', 100.00);
 
