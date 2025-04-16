@@ -1,5 +1,6 @@
 package be.com.fiap.localtech.localtech.model;
 
+import be.com.fiap.localtech.localtech.dtos.AluguelRequestsDTO;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,10 +15,20 @@ import java.time.LocalDate;
 public class Aluguel {
 
     private Long id;
-    private Pessoa pessoa;
-    private Veiculo veiculo;
+    private Long pessoaId;
+    private Long veiculoId;
     private String veiculoModelo;
+    private String pessoaCpf;
+    private String pessoaNome;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private BigDecimal valorTotal;
+
+    public Aluguel(AluguelRequestsDTO aluguelDTO, BigDecimal valorTotal) {
+                this.pessoaId =  aluguelDTO.pessoaId();
+                this.veiculoId = aluguelDTO.veiculoId();
+                this.dataInicio = aluguelDTO.dataInicio();
+                this.dataFim = aluguelDTO.dataFim();
+                this.valorTotal = valorTotal;
+    }
 }

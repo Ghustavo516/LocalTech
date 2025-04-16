@@ -1,7 +1,7 @@
 package be.com.fiap.localtech.localtech.controllers;
 
+import be.com.fiap.localtech.localtech.dtos.AluguelRequestsDTO;
 import be.com.fiap.localtech.localtech.model.Aluguel;
-import be.com.fiap.localtech.localtech.model.Veiculo;
 import be.com.fiap.localtech.localtech.services.AluguelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/aluguel")
+@RequestMapping("/alugueis")
 public class AluguelController {
 
     private static final Logger logger = LoggerFactory.getLogger(AluguelController.class);
@@ -25,12 +25,12 @@ public class AluguelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Aluguel>> findAllAluguels(
+    public ResponseEntity<List<Aluguel>> findAllAlugueis(
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ){
         logger.info("Foi acessado o endpoint de aluguel /aluguel");
-        var aluguel = aluguelService.findAllAluguel(page, size);
+        var aluguel = aluguelService.findAllAlugueis(page, size);
         return ResponseEntity.ok(aluguel);
     }
 
@@ -43,7 +43,7 @@ public class AluguelController {
 
     @PostMapping
     public ResponseEntity<Void> saveAluguel(
-            @RequestBody Aluguel aluguel
+            @RequestBody AluguelRequestsDTO aluguel
     ){
         logger.info("POST => /aluguel");
         aluguelService.saveAluguel(aluguel);

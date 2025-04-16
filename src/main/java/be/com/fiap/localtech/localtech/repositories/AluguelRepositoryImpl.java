@@ -19,7 +19,13 @@ public class AluguelRepositoryImpl implements AluguelRepository{
     @Override
     public Optional<Aluguel> findById(Long id) {
         return this.jdbcClient
-                .sql("SELECT * FROM aluguel WHERE id: :id")
+                .sql("SELECT a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.data_fim, a.valor_total, " +
+                     "p.nome as pessoa_nome, p.cpf as pessoa_cpf, " +
+                     "v.modelo as veiculo_modelo, v.placa as veiculo_placa " +
+                     "FROM alugueis a " +
+                     "JOIN pessoa p on a.pessoa_id = p.id " +
+                     "JOIN veiculos v on a.veiculo_id = v.id " +
+                     "WHERE a.id = :id")
                 .param("id", id)
                 .query(Aluguel.class)
                 .optional();
@@ -28,7 +34,13 @@ public class AluguelRepositoryImpl implements AluguelRepository{
     @Override
     public List<Aluguel> findAll(int size, int offset) {
         return this.jdbcClient
-                .sql("SELECT * FROM aluguel LIMIT :size OFFSET :offset")
+                .sql("SELECT a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.data_fim, a.valor_total, " +
+                     "p.nome as pessoa_nome, p.cpf as pessoa_cpf, " +
+                     "v.modelo as veiculo_modelo, v.placa as veiculo_placa " +
+                     "FROM alugueis a " +
+                     "JOIN pessoa p on a.pessoa_id = p.id " +
+                     "JOIN veiculos v on a.veiculo_id = v.id " +
+                     "LIMIT :size OFFSET :offset")
                 .param("size", size)
                 .param("offset", offset)
                 .query(Aluguel.class)
@@ -38,26 +50,24 @@ public class AluguelRepositoryImpl implements AluguelRepository{
     @Override
     public Integer save(Aluguel aluguel) {
         return this.jdbcClient
-                .sql("INSERT INTO veiculos (pessoa, veiculo, veiculoModelo, dataInicio, dataFim, valorTotal) VALUES (:pessoa, :veiculo, :veiculoModelo, :dataInicio, :dataFim, :valorTotal)")
-                .param("pessoa", aluguel.getPessoa())
-                .param("veiculo", aluguel.getVeiculo())
-                .param("veiculoModelo", aluguel.getVeiculoModelo())
-                .param("dataInicio", aluguel.getDataInicio())
-                .param("dataFim", aluguel.getDataFim())
-                .param("valorTotal", aluguel.getValorTotal())
+                .sql("INSERT INTO alugueis (pessoa_id, veiculo_id, data_inicio, data_fim, valor_total) VALUES (:pessoa_id, :veiculo_id, :data_inicio, :data_fim, :valor_total)")
+                .param("pessoa_id", aluguel.getPessoaId())
+                .param("veiculo_id", aluguel.getVeiculoId())
+                .param("data_inicio", aluguel.getDataInicio())
+                .param("data_fim", aluguel.getDataFim())
+                .param("valor_total", aluguel.getValorTotal())
                 .update();
     }
 
     @Override
     public Integer update(Aluguel aluguel, Long id) {
         return this.jdbcClient
-                .sql("UPDATE aluguel SET pessoa =:pessoa, veiculo=:veiculo, veiculoModelo=:veiculoModelo, dataInicio=:dataInicio, dataFim=:dataFim, valorTotal=:valorTotal WHERE ID = :id")
-                .param("pessoa", aluguel.getPessoa())
-                .param("veiculo", aluguel.getVeiculo())
-                .param("veiculoModelo", aluguel.getVeiculoModelo())
-                .param("dataInicio", aluguel.getDataInicio())
-                .param("dataFim", aluguel.getDataFim())
-                .param("valorTotal", aluguel.getValorTotal())
+                .sql("UPDATE alugueis SET pessoa_id =:pessoa_id, veiculo_id=:veiculo_id, data_inicio=:data_inicio, data_fim=:data_fim, valor_total=:valor_total WHERE ID = :id")
+                .param("pessoa_id", aluguel.getPessoaId())
+                .param("veiculo_id", aluguel.getVeiculoId())
+                .param("data_inicio", aluguel.getDataInicio())
+                .param("data_fim", aluguel.getDataFim())
+                .param("valor_total", aluguel.getValorTotal())
                 .param("id", aluguel.getId())
                 .update();
     }
@@ -65,7 +75,7 @@ public class AluguelRepositoryImpl implements AluguelRepository{
     @Override
     public Integer delete(Long id) {
         return this.jdbcClient
-                .sql("DELETE FROM pessoa WHERE ID = :id")
+                .sql("DELETE FROM alugueis WHERE ID = :id")
                 .param("id", id)
                 .update();
     }
