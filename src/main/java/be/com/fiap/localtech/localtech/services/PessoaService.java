@@ -1,5 +1,6 @@
 package be.com.fiap.localtech.localtech.services;
 
+import be.com.fiap.localtech.localtech.dtos.PessoaRequestDTO;
 import be.com.fiap.localtech.localtech.model.Pessoa;
 import be.com.fiap.localtech.localtech.repositories.PessoaRepository;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
-    public void savePessoa(Pessoa pessoa) {
-        var save = pessoaRepository.save(pessoa);
-        Assert.state(save == 1,  "Erro ao salvar pessoa: " + pessoa.getNome());
+    public void savePessoa(PessoaRequestDTO pessoa) {
+        var save = pessoaRepository.save(new Pessoa(pessoa));
+        Assert.state(save == 1,  "Erro ao salvar pessoa: " + pessoa.nome());
     }
 
     public void updateVPessoa(Pessoa pessoa, Long id) {

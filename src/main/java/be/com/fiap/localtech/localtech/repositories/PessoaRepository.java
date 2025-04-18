@@ -1,5 +1,6 @@
 package be.com.fiap.localtech.localtech.repositories;
 
+import be.com.fiap.localtech.localtech.dtos.PessoaRequestDTO;
 import be.com.fiap.localtech.localtech.model.Pessoa;
 
 import java.util.List;

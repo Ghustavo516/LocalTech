@@ -1,5 +1,6 @@
 package be.com.fiap.localtech.localtech.model;
 
+import be.com.fiap.localtech.localtech.dtos.PessoaRequestDTO;
 import lombok.*;
 
 @Getter
@@ -16,4 +17,12 @@ public class Pessoa {
     private String cpf;
     private String telefone;
     private String email;
+
+    public Pessoa(PessoaRequestDTO pessoaDTO) {
+        this.nome = pessoaDTO.nome();
+        this.sobrenome = pessoaDTO.sobrenome();
+        this.cpf = pessoaDTO.cpf();
+        this.telefone = pessoaDTO.telefone();
+        this.email = pessoaDTO.email();
+    }
 }

@@ -1,7 +1,9 @@
 package be.com.fiap.localtech.localtech.controllers;
 
+import be.com.fiap.localtech.localtech.dtos.PessoaRequestDTO;
 import be.com.fiap.localtech.localtech.model.Pessoa;
 import be.com.fiap.localtech.localtech.services.PessoaService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> savePessoa(@RequestBody Pessoa pessoa){
+    public ResponseEntity<Void> savePessoa(@Valid @RequestBody PessoaRequestDTO pessoa){
         pessoaService.savePessoa(pessoa);
         return ResponseEntity.status(201).build();
     }
