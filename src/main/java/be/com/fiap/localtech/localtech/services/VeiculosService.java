@@ -1,5 +1,6 @@
 package be.com.fiap.localtech.localtech.services;
 
+import be.com.fiap.localtech.localtech.dtos.VeiculoRequestsDTO;
 import be.com.fiap.localtech.localtech.model.Veiculo;
 import be.com.fiap.localtech.localtech.repositories.VeiculoRepository;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class VeiculosService {
         return veiculoRepository.findById(id);
     }
 
-    public void saveVeiculo(Veiculo veiculo){
-        var save = veiculoRepository.save(veiculo);
-        Assert.state(save == 1,  "Erro ao salvar veiculo " + veiculo.getModelo());
+    public void saveVeiculo(VeiculoRequestsDTO veiculo){
+        var save = veiculoRepository.save(new Veiculo(veiculo));
+        Assert.state(save == 1,  "Erro ao salvar veiculo " + veiculo.modelo());
     }
 
     public void updateVeiculo(Veiculo veiculo, Long id){

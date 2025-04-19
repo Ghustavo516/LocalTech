@@ -1,7 +1,9 @@
 package be.com.fiap.localtech.localtech.controllers;
 
+import be.com.fiap.localtech.localtech.dtos.VeiculoRequestsDTO;
 import be.com.fiap.localtech.localtech.model.Veiculo;
 import be.com.fiap.localtech.localtech.services.VeiculosService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class VeiculoController {
 
     @PostMapping
     public ResponseEntity<Void> saveVeiculo(
-            @RequestBody Veiculo veiculo
+            @Valid @RequestBody VeiculoRequestsDTO veiculo
     ){
         logger.info("POST => /veiculos");
         veiculoService.saveVeiculo(veiculo);
